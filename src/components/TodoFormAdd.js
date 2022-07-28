@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const TodoFormAdd = () => {
   const [task, setTask] = useState("");
   const [newTask, setNewTask] = useState([]);
+  const[editTask,setEditTask]=useState(null);
 
   const addTaskHandler = (e) => {
     e.preventDefault();
@@ -18,13 +19,19 @@ const TodoFormAdd = () => {
     }
   };
   const deleteTaskHandler = (id) => {
+    debugger
     const newFilteredTask = newTask.filter((tasks) => tasks.id !== id);
     setNewTask(newFilteredTask);
   };
 
   const editTaskHandler = (id) => {
+    debugger
+    // const newFilteredTask = newTask.filter((tasks) => tasks.id !== id);
+    // setTask(newFilteredTask);
+    const newEditedTask=newTask.find((edited)=>edited.id===id)
+    setTask(newEditedTask.value)
     const newFilteredTask = newTask.filter((tasks) => tasks.id !== id);
-    setTask(newFilteredTask);
+    setNewTask(newFilteredTask);
   };
   return (
     <div>
@@ -39,7 +46,7 @@ const TodoFormAdd = () => {
           return (
             <li key={tasks.id}>
               {tasks.value} <button onClick={() => deleteTaskHandler(tasks.id)}>❌</button>
-              <button onClick={editTaskHandler}>🖊️</button>
+              <button onClick={(e)=>editTaskHandler(tasks.id)}>🖊️</button>
             </li>
           );
         })}
