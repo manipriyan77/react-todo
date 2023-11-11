@@ -1,13 +1,19 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Input from './components/Input/Input';
 import ListTodos from './components/ListTodos/ListTodos';
+import { todoActions } from './store/todoSlice';
 
 import './index.css';
 
 const App = () => {
-  // const storedTodos = JSON.parse(localStorage.getItem('todos')) ?? [];
-  const storedTodos = useSelector((data) => data.todo.todo);
-  console.log(storedTodos);
+  const dispatch = useDispatch();
+  const storedTodos = useSelector((state) => state.todo.todo);
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem('todos')) ?? [];
+    dispatch(todoActions.initializeTodos(storedTodos));
+  }, [dispatch]);
   return (
     <div className="bg-[#F8F6F4] h-full main_section flex justify-center">
       <div className="w-[500px] text-center">
