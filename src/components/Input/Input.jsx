@@ -30,14 +30,24 @@ const Input = () => {
   return (
     <>
       <form onSubmit={enterDataHandler}>
-        <span></span>
-        <input
-          type="text"
-          placeholder="what task has to be done??"
-          value={enteredValue}
-          onChange={(e) => setEnteredValue(e.target.value)}
-          className="p-4 w-[100%] mb-4"
-        />
+        <div className="p-4 w-[100%] mb-4 flex">
+          <input
+            type="checkbox"
+            name=""
+            id="toggle-all"
+            onChange={() => dispatch(todoActions.completeAllTodos())}
+          />
+          <label htmlFor="toggle-all" className="text-[0px] toggle_all_btn">
+            Toggle-all
+          </label>
+          <input
+            type="text"
+            placeholder="what task has to be done??"
+            value={enteredValue}
+            onChange={(e) => setEnteredValue(e.target.value)}
+            className="p-4 w-[90%] mb-4"
+          />
+        </div>
       </form>
     </>
   );

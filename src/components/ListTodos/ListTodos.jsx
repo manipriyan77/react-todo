@@ -16,8 +16,6 @@ const ListTodos = () => {
     dispatch(todoActions.initializeTodos(storedTodos));
   }, [dispatch]);
 
-  console.log('activeTodos :>> ', activeTodos);
-
   const currentTodo =
     currentState === 'all'
       ? allTodos
@@ -54,12 +52,7 @@ const ListTodos = () => {
           >
             Completed
           </button>
-          <button
-            // className={currentState === 'all' && 'active_button'}
-            onClick={() => dispatch(todoActions.clearCompleted())}
-          >
-            Clear completed
-          </button>
+          <button onClick={() => dispatch(todoActions.clearCompleted())}>Clear completed</button>
         </div>
       </section>
     </>

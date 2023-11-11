@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fromJSON } from 'postcss';
 
 const todoSlice = createSlice({
   name: 'Todo',
@@ -74,6 +75,18 @@ const todoSlice = createSlice({
       });
       state.todo = newTodos;
       localStorage.setItem('todos', JSON.stringify(state.todo));
+    },
+    completeAllTodos(state, action) {
+      state.todo.forEach((value) => {
+        if (value.isCompleted === false) {
+          value.isCompleted = true;
+        }
+      });
+      state.completedTodos = state.todo;
+      state.activeTodos = [];
+      localStorage.setItem('todos', JSON.stringify(state.todo));
+
+      console.log(JSON.parse(JSON.stringify(state.todo)), 'hapend');
     },
   },
 });
