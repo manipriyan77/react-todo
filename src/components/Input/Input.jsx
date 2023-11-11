@@ -30,11 +30,13 @@ const Input = () => {
   return (
     <>
       <form onSubmit={enterDataHandler}>
+        <span></span>
         <input
           type="text"
           placeholder="what task has to be done??"
           value={enteredValue}
           onChange={(e) => setEnteredValue(e.target.value)}
+          className="p-4 w-[100%] mb-4"
         />
       </form>
     </>

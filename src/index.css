@@ -1,4 +1,18 @@
-body {
-  margin: 0;
-  padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main_section {
+    width: 100%;
+    height: 100vh;
+}
+
+.toggle_checkbox {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}
+
+.active_button {
+    @apply px-2 border-black border rounded-sm;
 }
