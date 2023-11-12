@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fromJSON } from 'postcss';
+import { validate } from 'uuid';
 
 const todoSlice = createSlice({
   name: 'Todo',
@@ -37,19 +38,18 @@ const todoSlice = createSlice({
     },
     markIncomplete(state, action) {
       const index = state.completedTodos.findIndex((value) => value.id === action.payload);
-      const newTodo = state.todo.find((value) => {
-        return value.id === action.payload;
-      });
-      if (newTodo) {
+      const newTodo = state.todo.find((value) => value.id === action.payload);
+
+      if (newTodo && newTodo.isCompleted) {
         newTodo.isCompleted = false;
-        state.completedTodos.push(newTodo);
+        if (index !== -1) {
+          state.completedTodos.splice(index, 1);
+        }
         state.activeTodos.push(newTodo);
         localStorage.setItem('todos', JSON.stringify(state.todo));
       }
-      if (index !== -1) {
-        state.completedTodos.splice(index, 1);
-      }
     },
+
     setCurrentState(state, action) {
       state.currentState = action.payload;
     },
@@ -80,13 +80,28 @@ const todoSlice = createSlice({
       state.todo.forEach((value) => {
         if (value.isCompleted === false) {
           value.isCompleted = true;
+          state.completedTodos = state.todo;
+          state.activeTodos = [];
+          localStorage.setItem('todos', JSON.stringify(state.todo));
+        } else {
+          value.isCompleted = false;
+          state.completedTodos = [];
+          state.activeTodos = state.todo;
+          localStorage.setItem('todos', JSON.stringify(state.todo));
         }
       });
-      state.completedTodos = state.todo;
-      state.activeTodos = [];
-      localStorage.setItem('todos', JSON.stringify(state.todo));
 
       console.log(JSON.parse(JSON.stringify(state.todo)), 'hapend');
+    },
+    editTodo(state, action) {
+      state.todo.forEach((value) => {
+        if (value.id === action.payload.id) {
+          console.log('inside');
+
+          value.value = action.payload.value;
+        }
+      });
+      localStorage.setItem('todos', JSON.stringify(state.todo));
     },
   },
 });

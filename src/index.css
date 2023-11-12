@@ -26,11 +26,19 @@ input:focus {
     content: '❯';
     font-size: 22px;
     color: #e6e6e6;
-    padding: 10px 27px 10px 27px;
+    padding: 10px 27px 10px 0px;
     color: #737373;
 }
 
 #toggle-all {
     position: absolute;
     top: -70px;
+}
+
+.delete_todo {
+    visibility: hidden;
+}
+
+.list_container:hover .delete_todo {
+    visibility: visible;
 }

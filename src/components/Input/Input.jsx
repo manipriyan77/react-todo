@@ -9,6 +9,7 @@ const Input = () => {
 
   const dispatch = useDispatch();
   const todoArray = useSelector((state) => state.todo);
+  // const [completeAll, setCompleteAll] = useState(false);
   function enterDataHandler(e) {
     e.preventDefault();
     if (enteredValue.length === 0) {
@@ -30,14 +31,14 @@ const Input = () => {
   return (
     <>
       <form onSubmit={enterDataHandler}>
-        <div className="p-4 w-[100%] mb-4 flex">
+        <div className="px-4 w-[100%] mb-4 flex bg-white items-center">
           <input
             type="checkbox"
             name=""
             id="toggle-all"
             onChange={() => dispatch(todoActions.completeAllTodos())}
           />
-          <label htmlFor="toggle-all" className="text-[0px] toggle_all_btn">
+          <label htmlFor="toggle-all" className="text-[0px] toggle_all_btn cursor-pointer">
             Toggle-all
           </label>
           <input
@@ -45,7 +46,7 @@ const Input = () => {
             placeholder="what task has to be done??"
             value={enteredValue}
             onChange={(e) => setEnteredValue(e.target.value)}
-            className="p-4 w-[90%] mb-4"
+            className="px-4 py-3 w-[90%] bg-transparent"
           />
         </div>
       </form>
